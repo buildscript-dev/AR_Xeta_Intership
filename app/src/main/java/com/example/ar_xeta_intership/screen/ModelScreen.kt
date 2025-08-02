@@ -18,9 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.ar_xeta_intership.navigation.ARScreen
+import com.google.accompanist.flowlayout.FlowRow
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import com.example.ar_xeta_intership.navigation.ARScreen
 import kotlin.random.Random
 
 @Composable
@@ -30,22 +31,19 @@ fun ModelScreen(navController: NavController) {
         "Pyramid", "Suzanne", "Plane", "Capsule", "Icosahedron"
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(60.dp))
-
-        Text(
-            text = "Models",
-            fontSize = 24.sp
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        FlowColumn {
+    Column {
+        Box(modifier = Modifier.height(60.dp)) {
+            Text(text = "Alphabets", fontSize = 24.sp, modifier = Modifier.align(Alignment.Center))
+        }
+        FlowRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(
+                    state = rememberScrollState()
+                ),
+            verticalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Center
+        ) {
             listOfModels.forEach { model ->
                 ModelItem(model = model) {
                     navController.navigate(ARScreen(model))
